@@ -5,7 +5,7 @@ import ctypes
 import getpass
 
 interactive_commands = ["su", "sudo", "ssh", "passwd", "nano", "vim", "vi", "top", "htop", "python", "python3"] # Interactive Commands Initial list
-print("<PSPSHW?> For custom commands write 'pspsh help'.") # Help for new users
+print("<PSPSHW?> For custom commands write 'pspshw help'.") # Help for new users
 
 while True:
     cwd = os.getcwd() # get current directory
