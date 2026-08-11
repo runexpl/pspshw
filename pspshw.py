@@ -5,33 +5,33 @@ import ctypes
 import getpass
 
 interactive_commands = ["su", "sudo", "ssh", "passwd", "nano", "vim", "vi", "top", "htop", "python", "python3"] # Interactive Commands Initial list
-print("<PSPSH?> For custom commands write 'pspsh help'.") # Help for new users
+print("<PSPSHW?> For custom commands write 'pspsh help'.") # Help for new users
 
 while True:
     cwd = os.getcwd() # get current directory
     user = getpass.getuser()
     try:
-        com = input(f"<PSPSH@{user} {cwd}> ")
+        com = input(f"<PSPSHW@{user} {cwd}> ")
     except KeyboardInterrupt:
         exit()
 
-    # PSPSH about commands
-    if com.startswith('pspsh'):
+    # PSPSHW about commands
+    if com.startswith('pspshw'):
         arg = com.split(' ', maxsplit=1)[1]
         if arg.lower() == "about":
-            print('Python SubProcess SHell wrapper: PSPSH')
-            print('PSPSH is a shell-wrapper written in python using subprocess, os and base64 modules.')
-            print("It's developed by runexpl and can be found under their pspsh repo on github.")
+            print('Python SubProcess SHell Wrapper: PSPSHW')
+            print('PSPSHW is a shell-wrapper written in python using subprocess, os and base64 modules.')
+            print("It's developed by runexpl and can be found under their pspshw repo on github.")
             print("It doesn't support a lot of edge-cases, be careful while using.\n")
-            print("PSPSH by runexpl on github.com/runexpl/pspsh")
+            print("PSPSHW by runexpl on github.com/runexpl/pspshw")
         elif arg.lower() == "help" or arg.lower() == "--help":
-            print('PSPSH custom commands help\n----------------------------')
+            print('PSPSHW custom commands help\n----------------------------')
             print("write_file: simple file writing utility, write 'write_file help' for more information.")
             print("runc: C library function runner, write 'runc help' for more information")
             print('add_interactive_command: adds commands to a list that makes the terminal handle stdin,out and err itself.')
             print('remove_interactive_command: removes commands to a list that makes the terminal handle stdin,out and err itself.')
             print('add/remove_interactive_command accept multiple entries with coma separating or single entry.\n')
-            print("PSPSH by runexpl on github.com/runexpl/pspsh")
+            print("PSPSHW by runexpl on github.com/runexpl/pspshw")
         continue
     
     # C library runner command
@@ -45,7 +45,7 @@ while True:
         except:
             arg3 = None
         if arg == 'help' or arg == '--help':
-            print('runc is a function in PSPSH to run C code using ctypes')
+            print('runc is a function in PSPSHW to run C code using ctypes')
             print('usage:')
             print('runc [shared library path] [function name] [ignore path check (y/N)]')
             continue
@@ -53,7 +53,7 @@ while True:
         if not asklib.startswith('/'):
             asklib = cwd + "/" + asklib
         if not os.path.exists(asklib) and str(arg3).lower() != 'y' and str(arg3).lower() != 'yes':
-            warn = input('<PSPSH!!!> Warning, provided path does not exist, do you want to continue anyways? (Y/n):').lower()
+            warn = input('<PSPSHW!!!> Warning, provided path does not exist, do you want to continue anyways? (Y/n):').lower()
             if warn == "no" or warn == "n":
                 print("Execution cancelled.")
                 continue
@@ -63,7 +63,7 @@ while True:
             result = func()
             print("exitcode/output: " + str(result))
         except Exception as e:
-            print("<PSPSH!!!> " + str(e))
+            print("<PSPSHW!!!> " + str(e))
         continue
         
     # Location handling
@@ -72,7 +72,7 @@ while True:
         try:
             os.chdir(arg)
         except Exception as e:
-            print(f'<PSPSH!!!> {str(e)}')
+            print(f'<PSPSHW!!!> {str(e)}')
     
     if com.strip() == "":
         continue
@@ -89,9 +89,9 @@ while True:
             bytes = bytespassed
             with open(f'{filename}','wb') as f:
                 f.write(base64.b64decode(bytes))
-            print('wrote to' + filename)
+            print('wrote to ' + filename)
         except Exception as e:
-            print(f'<PSPSH!!!> {str(e)}')
+            print(f'<PSPSHW!!!> {str(e)}')
     
     # Write_file Lines writing function
     def linewriting(file: str):
@@ -110,7 +110,7 @@ while True:
                 f.writelines(lines)
             print("wrote to " + filename)
         except Exception as e:
-            print(f'<PSPSH!!!> {str(e)}')
+            print(f'<PSPSHW!!!> {str(e)}')
     
     # Unified write_file function
     if com.startswith("write_file"):
@@ -122,7 +122,7 @@ while True:
             arg3 = args[3].strip()
 
         if arg1 == "help" or arg1 == '--help':
-            print("write_file is PSPSH's file writing function.")
+            print("write_file is PSPSHW's file writing function.")
             print("It allows to write files through it. It has two mods:")
             print("* lines: writing line by line")
             print("* base64: write base64 encoded bytes to the file\n")
@@ -150,7 +150,7 @@ while True:
             except:
                 interactive_commands.append(arg)
         except:
-            print("<PSPSH!!!> add_interactive_command: ")
+            print("<PSPSHW!!!> add_interactive_command: ")
         continue
 
     # Remove commands from the interactive_commands list
@@ -166,7 +166,7 @@ while True:
             except:
                 interactive_commands.remove(arg)
         except:
-            print("<PSPSH!!!> remove_interactive_command: ")
+            print("<PSPSHW!!!> remove_interactive_command: ")
         continue
     
     # Handle Interactive commands
@@ -190,5 +190,5 @@ while True:
         print(runcom.stdout)
         
     if runcom.stderr:
-        print("<PSPSH!!!> " + runcom.stderr)
+        print("<PSPSHW!!!> " + runcom.stderr)
 exit()
