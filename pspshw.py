@@ -37,13 +37,20 @@ while True:
     # C library runner command
     if com.startswith("runc"):
         print("Warning RunC does not support filenames with spaces.")
-        arg = com.split(' ', maxsplit=3)[1].strip().lower()
-        arg2 = com.split(' ', maxsplit=3)[2].strip()
+        args = com.split(' ', maxsplit=3)
+        arg = None
+        arg2 = None
         arg3 = None
-        try:
-            arg3 = com.split(' ', maxsplit=3)[3].strip()
-        except:
-            arg3 = None
+        if len(args) >= 2:
+            arg = com.split(' ', maxsplit=3)[1].strip().lower()
+        if len(args) >= 3:
+            arg = com.split(' ', maxsplit=3)[1].strip().lower()
+            arg2 = com.split(' ', maxsplit=3)[2].strip()
+        if len(args) >= 4:
+            arg = com.split(' ', maxsplit=3)[1].strip().lower()
+            arg2 = com.split(' ', maxsplit=3)[2].strip()
+            arg3 = args[3].strip()
+        
         if arg == 'help' or arg == '--help':
             print('runc is a function in PSPSHW to run C code using ctypes')
             print('usage:')
